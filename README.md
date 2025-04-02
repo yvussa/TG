@@ -18,7 +18,13 @@ domain="azure.microsoft.com"
 ```
 - 安装
 ```
-docker run --name nginx-mtproxy -d -e secret="$secret" -e domain="$domain" -e ip_white_list="OFF" -p 8888:80 -p 88:443 ellermister/nginx-mtproxy:latest
+docker run --name nginx-mtproxy -d \
+  -e secret="$secret" \
+  -e domain="$domain" \
+  -e ip_white_list="OFF" \
+  -p 10000-60000:80 \
+  -p 10000-60000:443 \
+  ellermister/nginx-mtproxy:latest
 ```
 - 查看配置
 ```
