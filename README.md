@@ -24,3 +24,11 @@ docker run --name nginx-mtproxy -d --restart unless-stopped -e secret="$secret" 
 ```
 docker logs nginx-mtproxy
 ```
+停止
+```
+docker stop nginx-mtproxy
+```
+开启
+```
+docker start nginx-mtproxy
+```
