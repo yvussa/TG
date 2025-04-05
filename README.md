@@ -20,6 +20,33 @@ domain="azure.microsoft.com"
 ```
 docker run --name nginx-mtproxy -d --restart unless-stopped -e secret="$secret" -e domain="$domain" -e ip_white_list="OFF" -p 8888:80 -p 88:443 ellermister/nginx-mtproxy:latest
 ```
+- 创建监控脚本
+```
+cat > /root/check_mtproxy.sh << 'EOF'
+#!/bin/bash
+
+# 检查 nginx-mtproxy 容器是否在运行中
+if ! docker ps | grep -q nginx-mtproxy; then
+    echo "$(date): nginx-mtproxy not running. Starting..." >> /var/log/mtproxy_monitor.log
+    docker start nginx-mtproxy
+fi
+EOF
+- 赋予脚本权限
+```
+chmod +x /root/check_mtproxy.sh
+```
+- 编辑crontab
+```
+crontab -e
+```
+- 尾部加入
+```
+* * * * * /root/check_mtproxy.sh >> /var/log/mtproxy_cron.log 2>&1
+```
+- 验证
+```
+crontab -l
+```
 - 查看配置
 ```
 docker logs nginx-mtproxy
