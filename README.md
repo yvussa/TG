@@ -39,7 +39,7 @@ chmod +x /root/check_mtproxy.sh
 ```
 crontab -e
 ```
-- 尾部加入
+尾部加入
 ```
 * * * * * /root/check_mtproxy.sh >> /var/log/mtproxy_cron.log 2>&1
 ```
