@@ -60,3 +60,8 @@ docker stop nginx-mtproxy
 ```
 docker start nginx-mtproxy
 ```
+停止并删除
+```
+docker stop nginx-mtproxy
+docker rm nginx-mtproxy
+```
