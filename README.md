@@ -1,4 +1,4 @@
-# TG代理
+# docker安装TG代理
 - 安装docker
 ```
 curl -fsSL https://get.docker.com -o get-docker.sh
