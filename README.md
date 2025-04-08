@@ -65,4 +65,4 @@ docker start nginx-mtproxy
 docker stop nginx-mtproxy
 docker rm nginx-mtproxy
 ```
-重新安装只需1添加伪装网站2复制安装脚本即可
+重新安装只需1添加伪装网站2复制安装内容即可
