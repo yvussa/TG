@@ -20,6 +20,10 @@ domain="azure.microsoft.com"
 ```
 docker run --name nginx-mtproxy -d --restart unless-stopped -e secret="$secret" -e domain="$domain" -e ip_white_list="OFF" -p 8080:80 -p 8443:443 ellermister/nginx-mtproxy:latest
 ```
+- 验证
+```
+crontab -l
+```
 - 创建监控脚本
 ```
 cat > /root/check_mtproxy.sh << 'EOF'
@@ -44,10 +48,7 @@ crontab -e
 ```
 * * * * * /root/check_mtproxy.sh >> /var/log/mtproxy_cron.log 2>&1
 ```
-- 验证
-```
-crontab -l
-```
+
 - 查看配置
 ```
 docker logs nginx-mtproxy
