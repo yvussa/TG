@@ -16,10 +16,44 @@ docker pull ellermister/nginx-mtproxy:latest
 ```
 domain="azure.microsoft.com"
 ```
-- 安装
+## 自定义安装
+- 部署nginx-mtproxy不添加TAG
 ```
 docker run --name nginx-mtproxy -d --restart unless-stopped -e secret="$secret" -e domain="$domain" -e ip_white_list="OFF" -p 8080:80 -p 8443:443 ellermister/nginx-mtproxy:latest
 ```
+B.部署nginx-mtproxy 添加TAG
+-获取secret
+```
+secret=$(head -c 16 /dev/urandom | xxd -ps)
+```
+查看secret
+```
+echo $secret
+```
+从 https://t.me/MTProxybot 获取tag
+```
+tag="你的atg"
+```
+安装
+```
+docker run --name nginx-mtproxy -d -e tag="$tag" -e secret="$secret" -e domain="$domain" -e ip_white_list="OFF" -p 8082:80 -p 8443:443 ellermister/nginx-mtproxy:latest
+```
+- 部署nginx-mtproxy添加白名单不添加TAG
+```
+docker run --name nginx-mtproxy -d -e secret="$secret" -e domain="$domain" -e ip_white_list="IP" -p 8083:80 -p 8443:443 ellermister/nginx-mtproxy:latest
+```
+ip_white_list 可选参数为:
+
+IP 允许单个 IP 访问
+
+IPSEG 允许 IP 段访问
+
+OFF 允许所有 IP 访问
+
+-p端口可自定义
+
+http://ip/add.php
+
 - 验证
 ```
 crontab -l
