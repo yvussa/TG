@@ -16,7 +16,7 @@ docker pull ellermister/nginx-mtproxy:latest
 ```
 domain="azure.microsoft.com"
 ```
-#5.自定义安装
+## 5.自定义安装
 A.部署nginx-mtproxy不添加TAG
 ```
 docker run --name nginx-mtproxy -d --restart unless-stopped -e secret="$secret" -e domain="$domain" -e ip_white_list="OFF" -p 8081:80 -p 8443:443 ellermister/nginx-mtproxy:latest
