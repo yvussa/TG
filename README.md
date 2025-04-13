@@ -1,5 +1,5 @@
-# MTProxyTLS
-- 安装docker
+# docker部署MTProxyTLS
+- 1安装docker
 ```
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
