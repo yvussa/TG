@@ -1,25 +1,25 @@
 # docker部署MTProxyTLS
-- 1安装docker
+1.安装docker
 ```
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 ```
-- 安装xdd
+2.安装xdd
 ```
 apt-get install xxd
 ```
-- 拉取镜像
+3.拉取镜像
 ```
 docker pull ellermister/nginx-mtproxy:latest
 ```
-- 添加伪装
+4.添加伪装
 ```
 domain="azure.microsoft.com"
 ```
-## 自定义安装
-- 部署nginx-mtproxy不添加TAG
+#5.自定义安装
+A.部署nginx-mtproxy不添加TAG
 ```
-docker run --name nginx-mtproxy -d --restart unless-stopped -e secret="$secret" -e domain="$domain" -e ip_white_list="OFF" -p 8080:80 -p 8443:443 ellermister/nginx-mtproxy:latest
+docker run --name nginx-mtproxy -d --restart unless-stopped -e secret="$secret" -e domain="$domain" -e ip_white_list="OFF" -p 8081:80 -p 8443:443 ellermister/nginx-mtproxy:latest
 ```
 B.部署nginx-mtproxy 添加TAG
 -获取secret
@@ -38,7 +38,7 @@ tag="你的atg"
 ```
 docker run --name nginx-mtproxy -d -e tag="$tag" -e secret="$secret" -e domain="$domain" -e ip_white_list="OFF" -p 8082:80 -p 8443:443 ellermister/nginx-mtproxy:latest
 ```
-- 部署nginx-mtproxy添加白名单不添加TAG
+C.部署nginx-mtproxy添加白名单不添加TAG
 ```
 docker run --name nginx-mtproxy -d -e secret="$secret" -e domain="$domain" -e ip_white_list="IP" -p 8083:80 -p 8443:443 ellermister/nginx-mtproxy:latest
 ```
@@ -54,11 +54,8 @@ OFF 允许所有 IP 访问
 
 http://ip/add.php
 
-- 验证
 ```
-crontab -l
-```
-- 创建监控脚本
+6.创建监控脚本
 ```
 cat > /root/check_mtproxy.sh << 'EOF'
 #!/bin/bash
@@ -70,20 +67,23 @@ if ! docker ps | grep -q nginx-mtproxy; then
 fi
 EOF
 ```
-- 赋予脚本权限
+7.赋予脚本权限
 ```
 chmod +x /root/check_mtproxy.sh
 ```
-- 编辑crontab
+8.编辑crontab
 ```
 crontab -e
 ```
-- 尾部加入
+尾部加入
 ```
 * * * * * /root/check_mtproxy.sh >> /var/log/mtproxy_cron.log 2>&1
 ```
-
-- 查看配置
+验证
+```
+crontab -l
+```
+查看配置
 ```
 docker logs nginx-mtproxy
 ```
