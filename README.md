@@ -86,17 +86,16 @@ crontab -l
 ```
 docker logs nginx-mtproxy
 ```
-停止
-```
-docker stop nginx-mtproxy
-```
 开启
 ```
 docker start nginx-mtproxy
 ```
-停止并删除
+停止
 ```
 docker stop nginx-mtproxy
+```
+删除
+```
 docker rm nginx-mtproxy
 ```
 重新部署只需1添加伪装网站2复制安装内容即可
